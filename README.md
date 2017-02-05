@@ -1,6 +1,6 @@
 # WiFi Connect
 
-RehiveTech WiFi Connect (www.rehivetech.com)
+RehiveTech WiFi Connect (www.rehivetech.com) is a tool intended for linux embedded devices in order to configure WiFi network client without having a straight access to the system console. The application creates its own configuration WiFi access point (AP) running on the same USB WiFi dongle which is afterwards used for network connection. Configuration AP is possible connect via notebook / smartphone / tablet and access the control panel by typing appropriate IP address to the web browser address bar (by default http://192.168.50.1:8080). Once the WiFi client configuration is done the dongle is switched back to the client mode connecting the preconfigured network with SSID and password.
 
 
 ### Prerequisities
