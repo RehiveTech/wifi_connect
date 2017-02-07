@@ -22,6 +22,7 @@ import binascii
 import fcntl
 import struct
 import time
+import fileinput
 from multiprocessing import Process, Value
 
 # SSID identification of the Access point network.
@@ -121,9 +122,15 @@ class Client():
         self.DHCLIENT_PF = temp_dir + '/dhclient.' + self.iface + '.pid'
         self.DHCLIENT_LF = temp_dir + '/dhclient.' + self.iface + '.lf'
 
-        # generated config file of does not exist
+        # generated config file does not exist
         if not os.path.isfile(WPA_CONF):
             self.gen_wpaconf()
+        else:  # if exist, change the control interface param only
+            for line in fileinput.input(WPA_CONF, inplace=True):
+                if line.strip().startswith('ctrl_interface'):
+                    print '\tctrl_interface=%s' % self.CTRL_INTERFACE
+                else:
+                    print "%s" % (line),
 
     def config(self, ssid, key=''):
         self.ssid = ssid
@@ -503,7 +510,8 @@ if __name__ == "__main__":
     ap = None
     https = None
     scanned = None
-    # make temporary directory for related application files
+
+    # make temporary directory for application related files
     temp_dir = tempfile.mkdtemp(prefix='wifi_connect-')
     web_wait_cnt = Value('i', INITIAL_WEB_WAIT)
     wlan_iface = get_wlan_name()
