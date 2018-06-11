@@ -192,6 +192,8 @@ class Client():
                 scanned[index]['enc'] = 'WPA'
 
         for k, v in scanned.items():  # change scanned to proper format
+            if 'SSID' not in v:
+                continue
             scanned[v['SSID']] = v
             del scanned[k]
 
